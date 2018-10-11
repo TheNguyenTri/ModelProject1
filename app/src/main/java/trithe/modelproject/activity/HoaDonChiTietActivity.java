@@ -170,7 +170,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pay");
-        builder.setIcon(R.drawable.ic_shopping_cart_black_24dp);
+        builder.setIcon(R.drawable.shopping);
         builder.setMessage("Do you want to pay ?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override

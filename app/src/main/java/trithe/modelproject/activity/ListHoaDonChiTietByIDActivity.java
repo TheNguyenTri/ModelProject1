@@ -74,7 +74,7 @@ public class ListHoaDonChiTietByIDActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListHoaDonChiTietByIDActivity.this);
                 builder.setTitle("Edit Detail");
                 builder.setView(view1);
-                builder.setIcon(R.drawable.ic_assignment_black_24dp);
+                builder.setIcon(R.drawable.assgiment);
                 spdetail = (Spinner) view1.findViewById(R.id.spdetail);
                 edquantitydetail = view1.findViewById(R.id.edquantitydetail);
                 getMaSachdetail();

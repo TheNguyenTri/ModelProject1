@@ -35,7 +35,8 @@ import trithe.modelproject.database.TheloaiDAO;
 import trithe.modelproject.model.Theloai;
 
 public class ListTheLoaiFragment extends Fragment {
-    private FloatingActionButton floatingActionButton, fabtheloai;
+//    private FloatingActionButton floatingActionButton;
+    private CardView cardView;
     public static List<Theloai> dsTheLoai = new ArrayList<>();
     ListView lvTheLoai;
     TheloaiAdapter adapter = null;
@@ -47,70 +48,8 @@ public class ListTheLoaiFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_list_the_loai_fragment, container, false);
-        floatingActionButton = view.findViewById(R.id.fabtheloai);
-        fabtheloai = view.findViewById(R.id.fabsearchtype);
-        fabtheloai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dsTheLoai.isEmpty()) {
-                    Toast.makeText(getContext(), "Data in System is Empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    dsTheLoai.clear();
-                    theLoaiDAO = new TheloaiDAO(getContext());
-                    dsTheLoai = theLoaiDAO.getAllTheLoai();
-                    adapter = new TheloaiAdapter(getActivity(), dsTheLoai);
-                    adapter.changeDatasetTheloai(theLoaiDAO.getAllTheLoai());
-
-                    LayoutInflater inflater = LayoutInflater.from(getContext());
-                    final View view = inflater.inflate(R.layout.dialog_search, null);
-                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
-                    builder.setTitle("Search");
-                    builder.setIcon(R.drawable.ic_youtube_searched_for_black_24dp);
-                    builder.setView(view);
-                    editText = view.findViewById(R.id.edSearch);
-                    lvTheLoai.setAdapter(adapter);
-                    lvTheLoai.setTextFilterEnabled(true);
-
-                    editText.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int
-                                count) {
-                            System.out.println("Text [" + s + "] - Start [" + start + "] - Before [" + before + "] - Count [" + count + "]");
-                            if (count < before) {
-                                adapter.resetData();
-                            }
-                            adapter.getFilter().filter(s.toString());
-                        }
-
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                        }
-                    });
-
-
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-
-                    });
-                    builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dsTheLoai.clear();
-                            dsTheLoai = theLoaiDAO.getAllTheLoai();
-                            adapter.changeDatasetTheloai(theLoaiDAO.getAllTheLoai());
-                        }
-                    });
-                    builder.show();
-                }
-            }
-        });
+//        floatingActionButton = view.findViewById(R.id.fabtheloai);
+        cardView = view.findViewById(R.id.fabtheloai);
         lvTheLoai = view.findViewById(R.id.lvtheloai);
         theLoaiDAO = new TheloaiDAO(getContext());
         registerForContextMenu(lvTheLoai);
@@ -131,14 +70,14 @@ public class ListTheLoaiFragment extends Fragment {
 //                return false;
 //            }
 //        });
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
                 final View view = inflater.inflate(R.layout.dialog_theloai, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Add The Loai");
-                builder.setIcon(R.drawable.ic_note_add_black_24dp);
+                builder.setTitle("Add Type Book");
+                builder.setIcon(R.drawable.note_add);
                 builder.setView(view);
                 final AlertDialog dialog = builder.show();
                 edid = view.findViewById(R.id.edidtheloai);
@@ -150,7 +89,10 @@ public class ListTheLoaiFragment extends Fragment {
                 cardViewcaceltl.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        edid.setText("");
+                        edname.setText("");
+                        edvitri.setText("");
+                        edmota.setText("");
                     }
                 });
                 cardViewsavetl.setOnClickListener(new View.OnClickListener() {
@@ -209,14 +151,26 @@ public class ListTheLoaiFragment extends Fragment {
                 if (edid.getText().toString().equals("")) {
                     edid.setError(getString(R.string.emptyidtheloai));
                     check = -1;
+                } else if (edid.getText().toString().length() > 5) {
+                    edid.setError(getString(R.string.lengthtl));
+                    check = -1;
                 } else if (edname.getText().toString().equals("")) {
                     edname.setError(getString(R.string.emptynametheloai));
+                    check = -1;
+                } else if (edname.getText().toString().length() > 30) {
+                    edname.setError(getString(R.string.lengthnametl));
                     check = -1;
                 } else if (edvitri.getText().toString().equals("")) {
                     edvitri.setError(getString(R.string.emptypositiontheloai));
                     check = -1;
+                } else if (edvitri.getText().toString().length() > 100) {
+                    edvitri.setError(getString(R.string.posotion));
+                    check = -1;
                 } else if (edmota.getText().toString().equals("")) {
                     edmota.setError(getString(R.string.emptymotatheloai));
+                    check = -1;
+                } else if (edmota.getText().toString().length() > 15) {
+                    edmota.setError(getString(R.string.des));
                     check = -1;
                 }
                 return check;
@@ -236,7 +190,6 @@ public class ListTheLoaiFragment extends Fragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         getActivity().getMenuInflater().inflate(R.menu.menu_lvtheloai, menu);
-        menu.setHeaderTitle("Choose your select");
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -254,6 +207,61 @@ public class ListTheLoaiFragment extends Fragment {
                 b.putString("DES", dsTheLoai.get(poistion1).getMoTa());
                 intent.putExtras(b);
                 startActivity(intent);
+                break;
+            case R.id.searchtl:
+                dsTheLoai.clear();
+                theLoaiDAO = new TheloaiDAO(getContext());
+                dsTheLoai = theLoaiDAO.getAllTheLoai();
+                adapter = new TheloaiAdapter(getActivity(), dsTheLoai);
+                adapter.changeDatasetTheloai(theLoaiDAO.getAllTheLoai());
+
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                final View view = inflater.inflate(R.layout.dialog_search, null);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+                builder.setTitle("Search");
+                builder.setIcon(R.drawable.youtube_search);
+                builder.setView(view);
+                editText = view.findViewById(R.id.edSearch);
+                lvTheLoai.setAdapter(adapter);
+                lvTheLoai.setTextFilterEnabled(true);
+
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int
+                            count) {
+                        System.out.println("Text [" + s + "] - Start [" + start + "] - Before [" + before + "] - Count [" + count + "]");
+                        if (count < before) {
+                            adapter.resetData();
+                        }
+                        adapter.getFilter().filter(s.toString());
+                    }
+
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+
+                });
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dsTheLoai.clear();
+                        dsTheLoai = theLoaiDAO.getAllTheLoai();
+                        adapter.changeDatasetTheloai(theLoaiDAO.getAllTheLoai());
+                    }
+                });
+                builder.show();
                 break;
             case R.id.deletetl:
                 AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();

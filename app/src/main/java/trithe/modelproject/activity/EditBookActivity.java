@@ -121,11 +121,36 @@ public class EditBookActivity extends AppCompatActivity {
     }
 
     public void huybook(View view) {
-        finish();
+      edTenSach.setText("");
+      spnTheLoai.setSelection(0);
+      edAuthor.setText("");
+      edProducer.setText("");
+      edGiaBia.setText("");
+      edSoLuong.setText("");
     }
 
     public void savebook(View view) {
-        if (sachDAO.updateSach(masach, edTenSach.getText().toString(), maTheLoai, edAuthor.getText().toString(), edProducer.getText().toString(), edGiaBia.getText().toString(), edSoLuong.getText().toString()) > 0) {
+        if (edTenSach.getText().toString().equals("")) {
+            edTenSach.setError(getString(R.string.emptynamebook));
+        } else if (edTenSach.getText().toString().length() > 30) {
+            edTenSach.setError(getString(R.string.lengthnametl));
+        } else if (edAuthor.getText().toString().equals("")) {
+            edAuthor.setError(getString(R.string.emptyauthorbook));
+        } else if (edAuthor.getText().toString().length() > 50) {
+            edTenSach.setError(getString(R.string.leng));
+        } else if (edProducer.getText().toString().equals("")) {
+            edProducer.setError(getString(R.string.emptyproducerbook));
+        } else if (edProducer.getText().toString().length() > 50) {
+            edTenSach.setError(getString(R.string.leng));
+        } else if (edGiaBia.getText().toString().equals("")) {
+            edGiaBia.setError(getString(R.string.emptypricebook));
+        } else if (Float.parseFloat(edGiaBia.getText().toString()) > 9999999999999999.9) {
+            edGiaBia.setError(getString(R.string.morethanfloat));
+        } else if (edSoLuong.getText().toString().equals("")) {
+            edSoLuong.setError(getString(R.string.emptyquantitybook));
+        } else if (Integer.parseInt(edSoLuong.getText().toString()) > 99999) {
+            edSoLuong.setError(getString(R.string.morethan99999));
+        } else if (sachDAO.updateSach(masach, edTenSach.getText().toString(), maTheLoai, edAuthor.getText().toString(), edProducer.getText().toString(), edGiaBia.getText().toString(), edSoLuong.getText().toString()) > 0) {
             Toast.makeText(getApplicationContext(), getString(R.string.alertsuccessfully), Toast.LENGTH_SHORT).show();
             finish();
         }

@@ -21,10 +21,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:onClick="outhd"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
+                android:src="@drawable/back" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -39,19 +39,19 @@
 
     <ImageView
 
+        android:id="@+id/imgc"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:layout_below="@+id/toolbaraddhoadon"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/hdicon" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnnav"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,73 +68,83 @@
                     android:id="@+id/edIDHoaDon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
                     android:layout_marginBottom="5dp"
-                    android:hint="ID Hoa Don" />
+                    android:inputType="text"
+                    android:hint="ID"
+                    android:imeOptions="actionNext" />
             </android.support.design.widget.TextInputLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight="5"
-                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/edDateHoaDon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:imeOptions="actionDone"
-                    android:hint="Date" />
-            </android.support.design.widget.TextInputLayout>
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:layout_height="40dp"
-        android:onClick="datePicker"
-        android:src="@drawable/ic_today_black_24dp"/>
-</LinearLayout>
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="10dp"
-                android:onClick="addHoadon"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="25dp">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:text="SAVE"
-                    android:textAllCaps="false"
-                    android:textColor="#fff"
-                    android:textSize="18sp" />
-            </android.support.v7.widget.CardView>
+                    android:layout_weight="5">
 
-            <android.support.v7.widget.CardView
+                    <EditText
+                        android:id="@+id/edDateHoaDon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Date"
+                        android:imeOptions="actionDone"
+                        android:inputType="date" />
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:onClick="datePicker"
+                    android:src="@drawable/today" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
-                android:onClick="huyAddHoaDon"
-                app:cardBackgroundColor="#a70101"
-                app:cardCornerRadius="25dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:text="CANCEL"
-                    android:textAllCaps="false"
-                    android:textColor="#fff"
-                    android:textSize="18sp" />
-            </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:onClick="addHoadon"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="SAVE"
+                        android:textColor="#fff"
+                        android:textSize="15dp" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:onClick="huyAddHoaDon"
+                    app:cardBackgroundColor="#a70101"
+                    app:cardCornerRadius="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="CANCEL"
+                        android:textColor="#fff"
+                        android:textSize="15dp" />
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 

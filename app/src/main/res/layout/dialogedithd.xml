@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:inputType="date"
                 android:hint="Date" />
         </android.support.design.widget.TextInputLayout>
 
@@ -28,6 +29,6 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:id="@+id/btna"
-            android:src="@drawable/ic_today_black_24dp" />
+            android:src="@drawable/today" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

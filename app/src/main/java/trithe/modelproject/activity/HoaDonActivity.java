@@ -51,15 +51,15 @@ public class HoaDonActivity extends AppCompatActivity implements DatePickerDialo
                 switch (item.getItemId()) {
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                         break;
                     case R.id.hoadon:
                         startActivity(new Intent(getApplicationContext(), ListHoaDonActivity.class));
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                         break;
                     case R.id.thongke:
                         startActivity(new Intent(getApplicationContext(), ThongkeActivity.class));
-                        overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                         break;
                 }
                 return false;
@@ -133,6 +133,9 @@ public class HoaDonActivity extends AppCompatActivity implements DatePickerDialo
     public int validation() {
         if (edMaHoaDon.getText().toString().isEmpty()) {
             edMaHoaDon.setError(getString(R.string.emptyaddidhd));
+            return -1;
+        } else if (edMaHoaDon.getText().toString().length() > 7) {
+            edMaHoaDon.setError(getString(R.string.less7));
             return -1;
         } else if (edNgayMua.getText().toString().isEmpty()) {
             edNgayMua.setError(getString(R.string.emptyadddatehd));

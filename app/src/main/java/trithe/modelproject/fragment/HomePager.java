@@ -33,7 +33,7 @@ public class HomePager extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 1:
-                return "The Loai";
+                return "Type Book";
             case 2:
                 return "User";
             default:

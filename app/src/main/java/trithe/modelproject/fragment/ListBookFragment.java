@@ -49,7 +49,8 @@ public class ListBookFragment extends Fragment {
     TheloaiDAO theLoaiDAO;
     Spinner spnTheLoai;
     List<Theloai> listTheLoai = new ArrayList<>();
-    private FloatingActionButton floatingActionButton,fabsearch;
+    //    private FloatingActionButton floatingActionButton;
+    CardView cardView;
     String maTheLoai = "";
     EditText edMaSach, edTenSach, edNXB, edTacGia, edGiaBia, edSoLuong, editText;
     CardView cardViewsaveBook, cardViewcancelBook;
@@ -59,77 +60,14 @@ public class ListBookFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_list_book_fragment, container, false);
         lvBook = (ListView) view.findViewById(R.id.lvBook);
-        floatingActionButton = view.findViewById(R.id.fabAddSach);
-        fabsearch=view.findViewById(R.id.fabsearchbook);
-        fabsearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dsSach.isEmpty()) {
-                    Toast.makeText(getContext(), "Data in System is Empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    dsSach.clear();
-                    sachDAO = new SachDAO(getContext());
-                    dsSach = sachDAO.getAllSach();
-                    adapter = new BookAdapter(getActivity(), dsSach);
-                    adapter.changeDatasetBook(sachDAO.getAllSach());
-
-                    LayoutInflater inflater = LayoutInflater.from(getContext());
-                    final View view = inflater.inflate(R.layout.dialog_search, null);
-                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
-                    builder.setTitle("Search");
-                    builder.setIcon(R.drawable.ic_youtube_searched_for_black_24dp);
-                    builder.setView(view);
-                    editText = view.findViewById(R.id.edSearch);
-                    lvBook.setAdapter(adapter);
-                    lvBook.setTextFilterEnabled(true);
-
-                    editText.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int
-                                count) {
-                            System.out.println("Text [" + s + "] - Start [" + start + "] - Before [" + before + "] - Count [" + count + "]");
-                            if (count < before) {
-                                adapter.resetData();
-                            }
-                            adapter.getFilter().filter(s.toString());
-                        }
-
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                        }
-                    });
-
-
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-
-                    });
-                    builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dsSach.clear();
-                            dsSach = sachDAO.getAllSach();
-                            adapter.changeDatasetBook(sachDAO.getAllSach());
-                        }
-                    });
-                    builder.show();
-                }
-            }
-        });
+        cardView = view.findViewById(R.id.fabAddSach);
         sachDAO = new SachDAO(getContext());
         theLoaiDAO = new TheloaiDAO(getContext());
         registerForContextMenu(lvBook);
         dsSach = sachDAO.getAllSach();
         adapter = new BookAdapter(getActivity(), dsSach);
         lvBook.setAdapter(adapter);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -137,7 +75,7 @@ public class ListBookFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Add Book");
                 builder.setView(view);
-                builder.setIcon(R.drawable.ic_note_add_black_24dp);
+                builder.setIcon(R.drawable.note_add);
                 spnTheLoai = (Spinner) view.findViewById(R.id.spnTheLoai);
 //                imageView = view.findViewById(R.id.logsang);
                 edMaSach = (EditText) view.findViewById(R.id.edMaSach);
@@ -151,7 +89,13 @@ public class ListBookFragment extends Fragment {
                 cardViewcancelBook.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        edMaSach.setText("");
+                        edTenSach.setText("");
+                        spnTheLoai.setSelection(0);
+                        edTacGia.setText("");
+                        edNXB.setText("");
+                        edGiaBia.setText("");
+                        edSoLuong.setText("");
                     }
                 });
                 cardViewsaveBook = view.findViewById(R.id.cardsavebook);
@@ -230,8 +174,14 @@ public class ListBookFragment extends Fragment {
                 if (edMaSach.getText().toString().equals("")) {
                     edMaSach.setError(getString(R.string.emptyidbook));
                     check = -1;
+                } else if (edMaSach.getText().toString().length() > 5) {
+                    edMaSach.setError(getString(R.string.lengthidsach));
+                    check = -1;
                 } else if (edTenSach.getText().toString().equals("")) {
                     edTenSach.setError(getString(R.string.emptynamebook));
+                    check = -1;
+                } else if (edTenSach.getText().toString().length() > 30) {
+                    edTenSach.setError(getString(R.string.lengthnametl));
                     check = -1;
                 } else if (edTacGia.getText().toString().equals("")) {
                     edTacGia.setError(getString(R.string.emptyauthorbook));
@@ -242,12 +192,19 @@ public class ListBookFragment extends Fragment {
                 } else if (edGiaBia.getText().toString().equals("")) {
                     edGiaBia.setError(getString(R.string.emptypricebook));
                     check = -1;
+                } else if (Float.parseFloat(edGiaBia.getText().toString()) > 9999999999999999.9) {
+                    edGiaBia.setError(getString(R.string.morethanfloat));
+                    check = -1;
                 } else if (edSoLuong.getText().toString().equals("")) {
                     edSoLuong.setError(getString(R.string.emptyquantitybook));
+                    check = -1;
+                } else if (Integer.parseInt(edSoLuong.getText().toString()) > 99999) {
+                    edSoLuong.setError(getString(R.string.morethan99999));
                     check = -1;
                 }
                 return check;
             }
+
             public void getTheLoai() {
                 theLoaiDAO = new TheloaiDAO(getContext());
                 listTheLoai = theLoaiDAO.getAllTheLoai();
@@ -270,7 +227,6 @@ public class ListBookFragment extends Fragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         getActivity().getMenuInflater().inflate(R.menu.menu_lvbook, menu);
-        menu.setHeaderTitle("Choose your select");
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -291,6 +247,61 @@ public class ListBookFragment extends Fragment {
                 b.putString("SOLUONG", String.valueOf(Integer.parseInt(String.valueOf(dsSach.get(poistion1).getSoLuong()))));
                 intent.putExtras(b);
                 startActivity(intent);
+                break;
+            case R.id.searchbook:
+                dsSach.clear();
+                sachDAO = new SachDAO(getContext());
+                dsSach = sachDAO.getAllSach();
+                adapter = new BookAdapter(getActivity(), dsSach);
+                adapter.changeDatasetBook(sachDAO.getAllSach());
+
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                final View view = inflater.inflate(R.layout.dialog_search, null);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+                builder.setTitle("Search");
+                builder.setIcon(R.drawable.youtube_search);
+                builder.setView(view);
+                editText = view.findViewById(R.id.edSearch);
+                lvBook.setAdapter(adapter);
+                lvBook.setTextFilterEnabled(true);
+
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int
+                            count) {
+                        System.out.println("Text [" + s + "] - Start [" + start + "] - Before [" + before + "] - Count [" + count + "]");
+                        if (count < before) {
+                            adapter.resetData();
+                        }
+                        adapter.getFilter().filter(s.toString());
+                    }
+
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+
+                });
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dsSach.clear();
+                        dsSach = sachDAO.getAllSach();
+                        adapter.changeDatasetBook(sachDAO.getAllSach());
+                    }
+                });
+                builder.show();
                 break;
             case R.id.deletebook:
                 AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();

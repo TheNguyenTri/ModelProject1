@@ -47,7 +47,7 @@
                 <TextView
                     android:id="@+id/tvDesTheLoai"
                     android:layout_width="0dp"
-                    android:layout_weight="10"
+                    android:layout_weight="7"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="Des" />

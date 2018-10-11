@@ -68,6 +68,8 @@ public class EditUserActivity extends AppCompatActivity {
     public void updateuser(View view) {
         if (editName.getText().toString().equals("")) {
             editName.setError(getString(R.string.error_emptyname));
+        } else if (editName.getText().toString().length() > 20) {
+            editName.setError(getString(R.string.lengthname));
         }else  if(editPhone.getText().toString().equals("")) {
             editPhone.setError(getString(R.string.error_emptyphone));
         }else if(editPhone.getText().toString().length()<10 || editPhone.getText().toString().length()>11){
@@ -85,6 +87,7 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     public void huyuser(View view) {
-        finish();
+       editName.setText("");
+       editPhone.setText("");
     }
 }

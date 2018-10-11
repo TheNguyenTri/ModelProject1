@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/searchbook"
+        android:title="Search" />
+    <item
         android:id="@+id/editbook"
         android:title="Edit" />
     <item

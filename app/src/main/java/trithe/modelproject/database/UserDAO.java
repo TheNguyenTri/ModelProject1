@@ -16,7 +16,7 @@ public class UserDAO {
     private SQLiteDatabase db;
     private Databasemanager databasemanager;
     public static final String TABLE_NAME = "User";
-    public static final String SQL_USER = "CREATE TABLE User (username text primary key, password text,  name text, phone text);";
+    public static final String SQL_USER = "CREATE TABLE User (username NVARCHAR(50) primary key, password NVARCHAR(50),  name NVARCHAR(50), phone VARCHAR);";
     public static final String TAG = "UserDAO";
 
     public UserDAO(Context context) {

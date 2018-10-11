@@ -6,28 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ListBookFragment">
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fabAddSach"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginRight="30dp"-->
+        <!--android:layout_marginBottom="40dp"-->
+        <!--android:src="@drawable/edit" />-->
+    <android.support.v7.widget.CardView
         android:id="@+id/fabAddSach"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="40dp"
-        android:src="@drawable/ic_edit_black_24dp" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabsearchbook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="#ff0000"
-        android:layout_marginBottom="120dp"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_search_black_24dp" />
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="5dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/edit" />
+    </android.support.v7.widget.CardView>
+
     <ListView
         android:id="@+id/lvBook"
-        android:layout_above="@+id/btnnav"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnnav" />
 </RelativeLayout>

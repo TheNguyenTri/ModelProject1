@@ -16,7 +16,7 @@ public class TheloaiDAO {
     private SQLiteDatabase db;
     private Databasemanager databasemanager;
     public static final String TABLE_NAME = "TheLoai";
-    public static final String SQL_THE_LOAI = "CREATE TABLE TheLoai (matheloai text primary key, tentheloai text, mota text, vitri int);";
+    public static final String SQL_THE_LOAI = "CREATE TABLE TheLoai (matheloai CHAR(5) primary key, tentheloai NVARCHAR(50), mota NVARCHAR(255), vitri int);";
     public static final String TAG = "TheLoaiDAO";
 
     public TheloaiDAO(Context context) {

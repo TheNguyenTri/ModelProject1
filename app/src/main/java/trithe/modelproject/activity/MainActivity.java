@@ -253,8 +253,6 @@ public class MainActivity extends AppCompatActivity
 //                    edit.commit();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-
-
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

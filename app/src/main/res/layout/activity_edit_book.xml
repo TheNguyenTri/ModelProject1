@@ -22,16 +22,16 @@
 
             <ImageView
                 android:id="@+id/outthembook"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
+                android:src="@drawable/back" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
                 android:gravity="center_vertical"
-                android:text="Book"
+                android:text="Update"
                 android:textColor="#fff"
                 android:textSize="22sp" />
         </LinearLayout>
@@ -40,8 +40,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btnnav"
-        android:layout_marginBottom="20dp">
+        android:layout_below="@id/toolbareditbook"
+        android:layout_marginTop="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +58,8 @@
                     android:id="@+id/edTenSach"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name Book"
+                    android:inputType="text"
+                    android:hint="Name"
                     android:imeOptions="actionNext" />
             </android.support.design.widget.TextInputLayout>
 
@@ -78,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Athor"
+                    android:inputType="text"
                     android:imeOptions="actionNext" />
             </android.support.design.widget.TextInputLayout>
 
@@ -90,6 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Producer"
+                    android:inputType="text"
                     android:imeOptions="actionNext" />
             </android.support.design.widget.TextInputLayout>
 
@@ -102,6 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Price"
+                    android:inputType="numberDecimal"
                     android:imeOptions="actionNext" />
             </android.support.design.widget.TextInputLayout>
 
@@ -114,48 +118,53 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Quantity"
+                    android:inputType="number"
                     android:imeOptions="actionDone" />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="20dp"
-                android:onClick="savebook"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="25dp">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:text="SAVE"
-                    android:textAllCaps="false"
-                    android:textColor="#fff"
-                    android:textSize="18sp" />
-            </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:onClick="savebook"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="5dp">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="10dp"
-                android:onClick="huybook"
-                app:cardBackgroundColor="#a70101"
-                app:cardCornerRadius="25dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="SAVE"
+                        android:textColor="#fff"
+                        android:textSize="15dp" />
+                </android.support.v7.widget.CardView>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:text="CANCEL"
-                    android:textAllCaps="false"
-                    android:textColor="#fff"
-                    android:textSize="18sp" />
-            </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:onClick="huybook"
+                    app:cardBackgroundColor="#a70101"
+                    app:cardCornerRadius="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="CANCEL"
+                        android:textColor="#fff"
+                        android:textSize="15dp" />
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 

@@ -38,9 +38,9 @@ public class ThongkeActivity extends AppCompatActivity {
         lvSinhVien = findViewById(R.id.lvthongke);
         lvSinhVien.setAdapter(adapter);
         hoaDonChiTietDAO = new HoaDonChiTietDAO(this);
-        sinhVienList.add(new Thongke("Today", hoaDonChiTietDAO.getDoanhThuTheoNgay() + "$"));
-        sinhVienList.add(new Thongke("Month", hoaDonChiTietDAO.getDoanhThuTheoThang() + "$"));
-        sinhVienList.add(new Thongke("Year", hoaDonChiTietDAO.getDoanhThuTheoNam() + "$"));
+        sinhVienList.add(new Thongke("Today", hoaDonChiTietDAO.getDoanhThuTheoNgay() + " VND"));
+        sinhVienList.add(new Thongke("Month", hoaDonChiTietDAO.getDoanhThuTheoThang() + " VND"));
+        sinhVienList.add(new Thongke("Year", hoaDonChiTietDAO.getDoanhThuTheoNam() + " VND"));
         adapter.notifyDataSetChanged();
         bottomNavigationView = findViewById(R.id.btnnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

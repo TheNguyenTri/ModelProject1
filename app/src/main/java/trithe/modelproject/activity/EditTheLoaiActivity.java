@@ -76,7 +76,19 @@ public class EditTheLoaiActivity extends AppCompatActivity {
 //        }
 //    }
     public void updatetheloai(View view) {
-        if (theLoaiDAO.updateTheLoai(id, edtenTheLoai.getText().toString(), edVitri.getText().toString(), edDes.getText().toString()) > 0) {
+        if (edtenTheLoai.getText().toString().equals("")) {
+            edtenTheLoai.setError(getString(R.string.emptynametheloai));
+        } else if (edtenTheLoai.getText().toString().length() > 30) {
+            edtenTheLoai.setError(getString(R.string.lengthnametl));
+        } else if (edVitri.getText().toString().equals("")) {
+            edVitri.setError(getString(R.string.emptypositiontheloai));
+        } else if (edVitri.getText().toString().length() > 100) {
+            edVitri.setError(getString(R.string.posotion));
+        } else if (edDes.getText().toString().equals("")) {
+            edDes.setError(getString(R.string.emptymotatheloai));
+        } else if (edDes.getText().toString().length() > 15) {
+            edDes.setError(getString(R.string.des));
+        } else if (theLoaiDAO.updateTheLoai(id, edtenTheLoai.getText().toString(), edVitri.getText().toString(), edDes.getText().toString()) > 0) {
             Toast.makeText(getApplicationContext(), getString(R.string.alertsuccessfully), Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -89,6 +101,8 @@ public class EditTheLoaiActivity extends AppCompatActivity {
     }
 
     public void huytheloai(View view) {
-        finish();
+        edtenTheLoai.setText("");
+        edVitri.setText("");
+        edDes.setText("");
     }
 }

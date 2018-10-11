@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,7 +40,6 @@ public class Top10SachActivity extends AppCompatActivity {
     BookAdapterTop10 adapter = null;
     SachDAO sachDAO;
     public static List<Sach> dsSach = new ArrayList<>();
-    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,48 +57,7 @@ public class Top10SachActivity extends AppCompatActivity {
         lvBook.setAdapter(adapter);
 
         setSupportActionBar(toolbar);
-        floatingActionButton = findViewById(R.id.fabsearchtop10);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dsSach.clear();
-                dsSach = sachDAO.getSachTop10show();
-                adapter.changeDatasetBookTop10(sachDAO.getSachTop10show());
 
-                LayoutInflater inflater = LayoutInflater.from(Top10SachActivity.this);
-                final View view = inflater.inflate(R.layout.dialog_search, null);
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Top10SachActivity.this);
-                builder.setTitle("Search");
-                builder.setIcon(R.drawable.ic_youtube_searched_for_black_24dp);
-                builder.setView(view);
-                editText = view.findViewById(R.id.edSearch);
-                lvBook.setTextFilterEnabled(true);
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (Integer.parseInt(editText.getText().toString()) > 13 ||
-                                Integer.parseInt(editText.getText().toString()) < 0) {
-                            Toast.makeText(getApplicationContext(), "Không đúng định dạng tháng (1- 12)", Toast.LENGTH_SHORT).show();
-                        } else {
-                            sachDAO = new SachDAO(Top10SachActivity.this);
-                            dsSach = sachDAO.getSachTop10(editText.getText().toString());
-                            adapter = new BookAdapterTop10(Top10SachActivity.this, dsSach);
-                            lvBook.setAdapter(adapter);
-                        }
-                    }
-
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dsSach.clear();
-                        dsSach = sachDAO.getAllSach();
-                        adapter.changeDatasetBookTop10(sachDAO.getSachTop10show());
-                    }
-                });
-                builder.show();
-            }
-        });
         lvBook = (ListView) findViewById(R.id.lvtop10);
         bottomNavigationView = findViewById(R.id.btnnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -129,44 +88,56 @@ public class Top10SachActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_top10, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.searchtop10:
-//                LayoutInflater inflater = LayoutInflater.from(this);
-//                final View view = inflater.inflate(R.layout.dialog_search, null);
-//                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-//                builder.setTitle("Search");
-//                builder.setIcon(R.drawable.ic_youtube_searched_for_black_24dp);
-//                builder.setView(view);
-//                editText = view.findViewById(R.id.edSearch);
-//                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (Integer.parseInt(editText.getText().toString()) > 13 ||
-//                                Integer.parseInt(editText.getText().toString()) < 0) {
-//                            Toast.makeText(getApplicationContext(), "Không đúng định dạng tháng (1- 12)", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            sachDAO = new SachDAO(Top10SachActivity.this);
-//                            dsSach = sachDAO.getSachTop10(editText.getText().toString());
-//                            adapter = new BookAdapterTop10(Top10SachActivity.this, dsSach);
-//                            lvBook.setAdapter(adapter);
-//                        }
-//                    }
-//
-//                });
-//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                });
-//                builder.show();
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search_top10:
+                dsSach.clear();
+                dsSach = sachDAO.getSachTop10show();
+                adapter.changeDatasetBookTop10(sachDAO.getSachTop10show());
+                if (dsSach.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.data), Toast.LENGTH_SHORT).show();
+                } else {
+                    LayoutInflater inflater = LayoutInflater.from(Top10SachActivity.this);
+                    final View view = inflater.inflate(R.layout.dialog_search, null);
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Top10SachActivity.this);
+                    builder.setTitle("Search");
+                    builder.setIcon(R.drawable.youtube_search);
+                    builder.setView(view);
+                    editText = view.findViewById(R.id.edSearch);
+                    lvBook.setTextFilterEnabled(true);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (editText.getText().toString().equals("")) {
+                            } else if (Integer.parseInt(editText.getText().toString()) > 13 ||
+                                    Integer.parseInt(editText.getText().toString()) < 0) {
+                                Toast.makeText(getApplicationContext(), getString(R.string.errormonth), Toast.LENGTH_SHORT).show();
+                            } else {
+                                sachDAO = new SachDAO(Top10SachActivity.this);
+                                dsSach = sachDAO.getSachTop10(editText.getText().toString());
+                                adapter = new BookAdapterTop10(Top10SachActivity.this, dsSach);
+                                lvBook.setAdapter(adapter);
+                            }
+                        }
+
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dsSach.clear();
+                            dsSach = sachDAO.getAllSach();
+                            adapter.changeDatasetBookTop10(sachDAO.getSachTop10show());
+                        }
+                    });
+                    builder.show();
+                }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

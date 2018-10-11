@@ -19,7 +19,7 @@ public class HoaDonChiTietDAO {
     private Databasemanager dbHelper;
     public static final String TABLE_NAME = "HoaDonChiTiet";
     public static final String SQL_HOA_DON_CHI_TIET = "CREATE TABLE HoaDonChiTiet (maHDCT INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "maHoaDon text NOT NULL, maSach text NOT NULL, soLuong INTEGER);";
+            "maHoaDon NCHAR(7) NOT NULL, maSach NCHAR(5) NOT NULL, soLuong INTEGER);";
     public static final String TAG = "HoaDonChiTiet";
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 

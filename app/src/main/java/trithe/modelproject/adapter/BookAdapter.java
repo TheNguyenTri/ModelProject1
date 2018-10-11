@@ -97,7 +97,7 @@ public class BookAdapter extends BaseAdapter implements Filterable {
         holder.txtBookID.setText( _entry.getMaSach());
         holder.txtNameBook.setText(_entry.getTenSach());
         holder.txtTheloaiBook.setText(_entry.getMaTheLoai());
-        holder.txtPrice.setText( _entry.getGiaBia()+"$");
+        holder.txtPrice.setText( _entry.getGiaBia()+" VND");
         holder.txtSoLuong.setText(_entry.getSoLuong() + "");
         return convertView;
     }

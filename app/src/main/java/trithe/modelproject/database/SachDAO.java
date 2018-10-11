@@ -16,7 +16,7 @@ public class SachDAO {
     private static SQLiteDatabase db;
     private Databasemanager dbHelper;
     public static final String TABLE_NAME = "Sach";
-    public static final String SQL_SACH = "CREATE TABLE Sach (maSach text primary key, maTheLoai text, tensach text," + "tacGia text, NXB text, giaBia double, soLuong number);";
+    public static final String SQL_SACH = "CREATE TABLE Sach (maSach NCHAR(5) primary key, maTheLoai NCHAR(50), tensach text," + "tacGia NVARCHAR(50), NXB NVARCHAR(50), giaBia FLOAT, soLuong INT);";
     public static final String TAG = "SachDAO";
 
     public SachDAO(Context context) {

@@ -51,8 +51,9 @@ import trithe.modelproject.model.HoaDon;
 
 public class ListHoaDonActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private Toolbar toolbar;
-    FloatingActionButton floatingActionButton, fabsearchhd;
+//    FloatingActionButton floatingActionButton;
     private BottomNavigationView bottomNavigationView;
+    CardView cardView;
 
     public List<HoaDon> dsHoaDon = new ArrayList<>();
     ListView lvHoaDon;
@@ -76,82 +77,6 @@ public class ListHoaDonActivity extends AppCompatActivity implements DatePickerD
             e.printStackTrace();
         }
         adapter = new HoaDonAdapter(this, dsHoaDon);
-        fabsearchhd = findViewById(R.id.fabsearchhoadon);
-        fabsearchhd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dsHoaDon.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Data in System is Empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    dsHoaDon.clear();
-                    hoaDonDAO = new HoaDonDAO(ListHoaDonActivity.this);
-                    try {
-                        dsHoaDon = hoaDonDAO.getAllHoaDon();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    adapter = new HoaDonAdapter(ListHoaDonActivity.this, dsHoaDon);
-                    try {
-                        adapter.changeDataset(hoaDonDAO.getAllHoaDon());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    LayoutInflater inflater = LayoutInflater.from(ListHoaDonActivity.this);
-                    final View view = inflater.inflate(R.layout.dialog_search, null);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ListHoaDonActivity.this);
-                    builder.setTitle("Search");
-                    builder.setView(view);
-                    builder.setIcon(R.drawable.ic_youtube_searched_for_black_24dp);
-                    editText = view.findViewById(R.id.edSearch);
-                    lvHoaDon.setAdapter(adapter);
-                    lvHoaDon.setTextFilterEnabled(true);
-                    editText.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int
-                                count) {
-                            System.out.println("Text [" + s + "] - Start [" + start + "] - Before [" + before + "] - Count [" + count + "]");
-                            if (count < before) {
-                                adapter.resetData();
-                            }
-                            adapter.getFilter().filter(s.toString());
-                        }
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                        }
-                    });
-
-
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-
-                    });
-                    builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dsHoaDon.clear();
-                            try {
-                                dsHoaDon = hoaDonDAO.getAllHoaDon();
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                adapter.changeDataset(hoaDonDAO.getAllHoaDon());
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    builder.show();
-                }
-            }
-        });
         lvHoaDon.setAdapter(adapter);
         registerForContextMenu(lvHoaDon);
         toolbar = findViewById(R.id.toolbarhoadon);
@@ -173,8 +98,8 @@ public class ListHoaDonActivity extends AppCompatActivity implements DatePickerD
                 return false;
             }
         });
-        floatingActionButton = findViewById(R.id.fabhaodon);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        cardView = findViewById(R.id.fabhaodon);
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), HoaDonActivity.class));
@@ -212,7 +137,6 @@ public class ListHoaDonActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         getMenuInflater().inflate(R.menu.menu_lvhd, menu);
-        menu.setHeaderTitle("Choose your select");
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -227,6 +151,9 @@ public class ListHoaDonActivity extends AppCompatActivity implements DatePickerD
                 b.putString("MAHOADON", dsHoaDon.get(poistion1).getMaHoaDon());
                 intent.putExtras(b);
                 startActivity(intent);
+                break;
+            case R.id.searchd:
+                search();
                 break;
             case R.id.deletehd:
                 AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -251,7 +178,7 @@ public class ListHoaDonActivity extends AppCompatActivity implements DatePickerD
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListHoaDonActivity.this);
                 builder.setTitle("Edit Date");
                 builder.setView(view);
-                builder.setIcon(R.drawable.ic_today_black_24dp);
+                builder.setIcon(R.drawable.timer);
                 btna = view.findViewById(R.id.btna);
                 //lỗi gay gắt nhât'
 //                editTextDate = view.findViewById(R.id.edDateHoaDonedit);
@@ -320,5 +247,73 @@ public class ListHoaDonActivity extends AppCompatActivity implements DatePickerD
         super.onBackPressed();
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+    }
+    public void search(){
+        dsHoaDon.clear();
+        hoaDonDAO = new HoaDonDAO(ListHoaDonActivity.this);
+        try {
+            dsHoaDon = hoaDonDAO.getAllHoaDon();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        adapter = new HoaDonAdapter(ListHoaDonActivity.this, dsHoaDon);
+        try {
+            adapter.changeDataset(hoaDonDAO.getAllHoaDon());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        LayoutInflater inflaters = LayoutInflater.from(ListHoaDonActivity.this);
+        final View views = inflaters.inflate(R.layout.dialog_search, null);
+        AlertDialog.Builder builders = new AlertDialog.Builder(ListHoaDonActivity.this);
+        builders.setTitle("Search");
+        builders.setView(views);
+        builders.setIcon(R.drawable.youtube_search);
+        editText = views.findViewById(R.id.edSearch);
+        lvHoaDon.setAdapter(adapter);
+        lvHoaDon.setTextFilterEnabled(true);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int
+                    count) {
+                System.out.println("Text [" + s + "] - Start [" + start + "] - Before [" + before + "] - Count [" + count + "]");
+                if (count < before) {
+                    adapter.resetData();
+                }
+                adapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
+        builders.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+
+        });
+        builders.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dsHoaDon.clear();
+                try {
+                    dsHoaDon = hoaDonDAO.getAllHoaDon();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    adapter.changeDataset(hoaDonDAO.getAllHoaDon());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        builders.show();
     }
 }

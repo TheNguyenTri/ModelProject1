@@ -20,10 +20,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:onClick="outhoadon"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
+                android:src="@drawable/back" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,26 +45,31 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="55dp"></ListView>
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fabhaodon"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_marginBottom="100dp"-->
+    <!--android:src="@drawable/edit" />-->
+    <android.support.v7.widget.CardView
         android:id="@+id/fabhaodon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="100dp"
-        android:src="@drawable/ic_edit_black_24dp" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabsearchhoadon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="180dp"
-        android:backgroundTint="#ff0000"
-        android:src="@drawable/ic_search_black_24dp" />
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="5dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/edit" />
+    </android.support.v7.widget.CardView>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/btnnav"

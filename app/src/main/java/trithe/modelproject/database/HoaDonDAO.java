@@ -19,7 +19,7 @@ public class HoaDonDAO {
     private static SQLiteDatabase db;
     private Databasemanager dbHelper;
     public static final String TABLE_NAME = "HoaDon";
-    public static final String SQL_HOA_DON = "CREATE TABLE HoaDon (mahoadon text primary key, ngaymua date);";
+    public static final String SQL_HOA_DON = "CREATE TABLE HoaDon (mahoadon NCHAR(7) primary key, ngaymua date);";
     public static final String TAG = "HoaDonDAO";
     static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 

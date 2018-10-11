@@ -6,32 +6,32 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_top10"
-            android:icon="@drawable/ic_monetization_on_black_24dp"
+            android:icon="@drawable/money"
             android:title="Top 10" />
         <item
             android:id="@+id/nav_hoadon"
-            android:icon="@drawable/ic_forum_black_24dp"
-            android:title="Hoa don" />
+            android:icon="@drawable/forum"
+            android:title="Bill" />
         <item
             android:id="@+id/nav_thongke"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="Thong ke" />
+            android:icon="@drawable/shopping"
+            android:title="Statistical" />
         <item
             android:id="@+id/nav_change"
-            android:icon="@drawable/ic_settings_applications_black_24dp"
-            android:title="Doi mat khau" />
+            android:icon="@drawable/settings"
+            android:title="Change Password" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_intro"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Gioi thieu" />
+                android:icon="@drawable/share"
+                android:title="Introduce" />
             <item
                 android:id="@+id/nav_out"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Dang xuat" />
+                android:icon="@drawable/send"
+                android:title="Sign Out" />
         </menu>
     </item>
 

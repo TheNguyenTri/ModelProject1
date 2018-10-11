@@ -22,9 +22,9 @@
             <ImageView
                 android:id="@+id/outhoadonDetail"
                 android:onClick="outhoadonDetail"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_arrow_back_black_24dp" />
+                android:src="@drawable/back" />
 
             <TextView
                 android:layout_width="match_parent"
